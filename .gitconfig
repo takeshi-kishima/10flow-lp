@@ -1,0 +1,14 @@
+[core]
+    autocrlf = false
+    filemode = false
+    ignorecase = false
+    
+[pull]
+    rebase = false
+    
+[push]
+    default = simple
+    
+[branch]
+    autosetupmerge = always
+    autosetuprebase = always

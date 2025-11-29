@@ -209,6 +209,34 @@
   box-shadow: var(--shadow-xl);
 }
 
+/* Mobile Mockup - Frame + Content overlay */
+.mobile-mockup {
+  position: relative;
+  max-width: 350px;
+  width: 100%;
+  aspect-ratio: 9 / 19;
+}
+
+.mobile-screen-content {
+  position: absolute;
+  top: 3%;
+  left: 3%;
+  width: 94%;
+  height: 94%;
+  object-fit: cover;
+  border-radius: 30px;
+  z-index: 1;
+}
+
+.mobile-screen-frame {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  z-index: 2;
+  pointer-events: none;
+}
+
 /* Logo */
 .logo {
   height: 40px;

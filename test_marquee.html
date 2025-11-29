@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>マーキーアニメーションテスト</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+            background: #f4f6fb;
+            padding: 40px 20px;
+        }
+        
+        .test-info {
+            max-width: 800px;
+            margin: 0 auto 40px;
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        .test-info h1 {
+            color: #1e2554;
+            margin-bottom: 16px;
+        }
+        
+        .test-info p {
+            color: #5b6185;
+            line-height: 1.6;
+        }
+        
+        .status {
+            display: inline-block;
+            padding: 4px 12px;
+            background: #4ade80;
+            color: white;
+            border-radius: 4px;
+            font-weight: bold;
+            font-size: 14px;
+            margin-top: 12px;
+        }
+        
+        .marquee {
+            padding: 40px 0;
+            overflow: hidden;
+            position: relative;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        .marquee__track {
+            display: flex;
+            gap: 32px;
+            width: max-content;
+            animation: marquee-scroll 30s linear infinite;
+            will-change: transform;
+        }
+        
+        .marquee__item {
+            flex-shrink: 0;
+            min-width: 280px;
+            padding: 24px 40px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+            color: white;
+            font-weight: bold;
+            font-size: 20px;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .marquee__item:nth-child(2n) {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        }
+        
+        .marquee__item:nth-child(3n) {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        }
+        
+        @keyframes marquee-scroll {
+            from {
+                transform: translateX(0);
+            }
+            to {
+                transform: translateX(-50%);
+            }
+        }
+        
+        .animation-indicator {
+            text-align: center;
+            margin-top: 20px;
+            color: #1e2554;
+            font-size: 14px;
+        }
+        
+        .arrow {
+            font-size: 24px;
+            animation: bounce 1s ease-in-out infinite;
+        }
+        
+        @keyframes bounce {
+            0%, 100% { transform: translateX(0); }
+            50% { transform: translateX(-10px); }
+        }
+    </style>
+</head>
+<body>
+    <div class="test-info">
+        <h1>🎬 マーキーアニメーションテスト</h1>
+        <p>以下のバナーが右から左へ自動的にスクロールしていることを確認してください。</p>
+        <p><strong>期待される動作:</strong></p>
+        <ul style="margin-left: 20px; margin-top: 8px;">
+            <li>バナーが滑らかに右から左へ移動</li>
+            <li>30秒で1サイクル完了</li>
+            <li>途切れることなく無限ループ</li>
+        </ul>
+        <span class="status">✓ アニメーション実行中</span>
+    </div>
+    
+    <div class="marquee" aria-label="導入医院バナー">
+        <div class="marquee__track">
+            <div class="marquee__item">はち歯科医院</div>
+            <div class="marquee__item">みらいデンタル</div>
+            <div class="marquee__item">さくらクリニック</div>
+            <div class="marquee__item">ブルースカイ歯科</div>
+            <div class="marquee__item">グリーンパーク医院</div>
+            <div class="marquee__item">ホワイトライン歯科</div>
+            <!-- 複製してループを滑らかに -->
+            <div class="marquee__item">はち歯科医院</div>
+            <div class="marquee__item">みらいデンタル</div>
+            <div class="marquee__item">さくらクリニック</div>
+            <div class="marquee__item">ブルースカイ歯科</div>
+            <div class="marquee__item">グリーンパーク医院</div>
+            <div class="marquee__item">ホワイトライン歯科</div>
+        </div>
+    </div>
+    
+    <div class="animation-indicator">
+        <span class="arrow">←</span> スクロール方向
+    </div>
+    
+    <script>
+        // アニメーションが実行されているか確認
+        window.addEventListener('load', () => {
+            const track = document.querySelector('.marquee__track');
+            const computedStyle = window.getComputedStyle(track);
+            const animationName = computedStyle.animationName;
+            
+            console.log('✅ アニメーション名:', animationName);
+            console.log('✅ アニメーション時間:', computedStyle.animationDuration);
+            console.log('✅ アニメーション状態:', computedStyle.animationPlayState);
+            
+            if (animationName !== 'none') {
+                console.log('🎉 マーキーアニメーションが正常に動作しています！');
+            } else {
+                console.warn('⚠️ アニメーションが検出されませんでした');
+            }
+        });
+    </script>
+</body>
+</html>
